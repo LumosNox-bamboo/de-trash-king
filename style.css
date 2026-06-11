@@ -352,6 +352,29 @@ h2 {
   gap: 10px;
 }
 
+.action-grid button {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  min-height: 76px;
+  text-align: left;
+}
+
+.action-grid button span {
+  font-weight: 900;
+}
+
+.action-grid button small {
+  color: rgba(36, 33, 29, 0.72);
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.32;
+}
+
+.action-grid .primary-button small {
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .action-grid .wide {
   grid-column: span 3;
 }
