@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trash King in Germany</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Trash King DE</p>
+        <h1>Trash King in Germany</h1>
+      </div>
+      <div class="header-actions">
+        <a class="link-button" href="../index.html">Chinese Version</a>
+        <button id="continueButton" class="secondary-button">Continue</button>
+        <button id="resetButton" class="danger-button">Reset</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="startScreen" class="start-screen">
+        <div class="start-copy">
+          <h2>You are an international student living in a wealthy German apartment district</h2>
+          <p>The building is quiet, the neighbors are alert, and the shared bins feel like a scarce resource. Every day your room produces organic waste, packaging, recyclables, and residual trash. It piles up, starts to smell, and turns into pressure.</p>
+          <p>You have limited actions and limited money. Sneak trash into the building bins, search outside, collect deposit bottles, and save enough to unlock real waste-disposal freedom.</p>
+        </div>
+        <div class="mode-grid">
+          <button class="mode-card" data-new-mode="easy">
+            <span class="mode-title">Easy Mode</span>
+            <span>5 actions per day, 20 euros to start, and outside bins are easier to find.</span>
+          </button>
+          <button class="mode-card hard" data-new-mode="hard">
+            <span class="mode-title">Hard Mode</span>
+            <span>3 actions per day, 8 euros to start, harsher fines, and tighter space.</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="game-screen hidden">
+        <section class="status-grid" aria-label="Top status bar">
+          <div class="status-item">
+            <span>Day</span>
+            <strong id="dayValue">1</strong>
+          </div>
+          <div class="status-item">
+            <span>Mode</span>
+            <strong id="modeValue">Easy</strong>
+          </div>
+          <div class="status-item">
+            <span>Money</span>
+            <strong id="moneyValue">20.00 EUR</strong>
+          </div>
+          <div class="status-item">
+            <span>Actions</span>
+            <strong id="actionsValue">5</strong>
+          </div>
+          <div class="status-item">
+            <span>Bottles</span>
+            <strong id="bottlesValue">0 / 36</strong>
+          </div>
+          <div class="status-item">
+            <span>Fines</span>
+            <strong id="finesValue">0 / 14</strong>
+          </div>
+        </section>
+
+        <section id="resultPanel" class="result-panel hidden"></section>
+
+        <section class="daily-panel">
+          <div>
+            <h2>Today</h2>
+            <p id="dailySummary">A new day begins.</p>
+          </div>
+          <div class="goal-box">
+            <span>Goal</span>
+            <strong id="goalValue">0 / 4 freedoms</strong>
+          </div>
+        </section>
+
+        <section id="opportunityPanel" class="opportunity-panel hidden"></section>
+
+        <section>
+          <div class="section-heading">
+            <h2>Trash at Home</h2>
+            <span id="limitStreakValue">0 over-limit days in a row</span>
+          </div>
+          <div id="garbageCards" class="garbage-grid"></div>
+        </section>
+
+        <section class="action-panel">
+          <h2>Actions</h2>
+          <div class="action-grid">
+            <button data-action="indoor-bin">
+              <span>Building Bins</span>
+              <small>Small safe quota. Good for emergencies; overdoing it can get you caught.</small>
+            </button>
+            <button data-action="outside-bin">
+              <span>Search Outside</span>
+              <small>Spend an action to look for a larger bin. You may also find nothing.</small>
+            </button>
+            <button data-action="walk-bottles">
+              <span>Collect Bottles</span>
+              <small>Earn deposits and small finds. Bottle storage is limited.</small>
+            </button>
+            <button data-action="redeem-bottles">
+              <span>Redeem Deposits</span>
+              <small>Take bottles to the supermarket and turn them into money.</small>
+            </button>
+            <button data-action="compress-trash">
+              <span>Sort and Compress</span>
+              <small>Reduce trash weight or storage pressure, but it does not earn money.</small>
+            </button>
+            <button data-action="unlock-freedom">
+              <span>Unlock Freedom</span>
+              <small>Buy stable disposal access. Unlocked trash types clear automatically.</small>
+            </button>
+            <button data-action="end-day" class="primary-button wide">
+              <span>End Day</span>
+              <small>Settle storage days and penalties, then move to the next day.</small>
+            </button>
+          </div>
+        </section>
+
+        <section class="log-panel">
+          <div class="section-heading">
+            <h2>Event Log</h2>
+            <span>Latest 80 entries</span>
+          </div>
+          <ol id="logList" class="log-list"></ol>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Action</h2>
+        <button id="modalCloseButton" class="icon-button" aria-label="Close">×</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
