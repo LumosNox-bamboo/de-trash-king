@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>我是德区垃圾王 · 手机版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Trash King DE Mobile</p>
+        <h1>我是德区垃圾王 · 手机版</h1>
+      </div>
+      <div class="header-actions">
+        <button id="continueButton" class="secondary-button">继续游戏</button>
+        <button id="resetButton" class="danger-button">重置游戏</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="startScreen" class="start-screen">
+        <div class="start-copy">
+          <h2>你是一个住在德国富人区公寓里的留子</h2>
+          <p>这里很安静，邻居很警惕，楼内垃圾桶像稀缺资源。每天家里都会产生厨余、包装、可回收和其他垃圾；垃圾会越堆越多、越放越危险，而你的行动次数和钱都有限。</p>
+          <p>你需要偷偷处理垃圾、外出找桶、捡瓶子换押金，慢慢攒钱解锁真正的垃圾处理自由。在那之前，每一天都是和垃圾分类、邻里视线、钱包余额的拉扯。</p>
+        </div>
+        <div class="mode-grid">
+          <button class="mode-card" data-new-mode="easy">
+            <span class="mode-title">简单模式</span>
+            <span>每天 5 次行动，20 欧元开局，垃圾桶更容易找到。</span>
+          </button>
+          <button class="mode-card hard" data-new-mode="hard">
+            <span class="mode-title">困难模式</span>
+            <span>每天 3 次行动，8 欧元开局，罚款更痛，空间更紧。</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="game-screen hidden">
+        <section class="status-grid" aria-label="顶部状态栏">
+          <div class="status-item">
+            <span>天数</span>
+            <strong id="dayValue">1</strong>
+          </div>
+          <div class="status-item">
+            <span>模式</span>
+            <strong id="modeValue">简单</strong>
+          </div>
+          <div class="status-item">
+            <span>金钱</span>
+            <strong id="moneyValue">20.00 欧元</strong>
+          </div>
+          <div class="status-item">
+            <span>行动</span>
+            <strong id="actionsValue">5</strong>
+          </div>
+          <div class="status-item">
+            <span>瓶子</span>
+            <strong id="bottlesValue">0 / 36</strong>
+          </div>
+          <div class="status-item">
+            <span>罚款</span>
+            <strong id="finesValue">0 / 14</strong>
+          </div>
+        </section>
+
+        <section id="resultPanel" class="result-panel hidden"></section>
+
+        <section class="daily-panel">
+          <div>
+            <h2>今日情况</h2>
+            <p id="dailySummary">新的一天开始了。</p>
+          </div>
+          <div class="goal-box">
+            <span>通关进度</span>
+            <strong id="goalValue">0 / 4 自由</strong>
+          </div>
+        </section>
+
+        <section id="opportunityPanel" class="opportunity-panel hidden"></section>
+
+        <section>
+          <div class="section-heading">
+            <h2>家中垃圾状态</h2>
+            <span id="limitStreakValue">连续超限 0 天</span>
+          </div>
+          <div id="garbageCards" class="garbage-grid"></div>
+        </section>
+
+        <section class="action-panel">
+          <h2>今日行动</h2>
+          <div class="action-grid">
+            <button data-action="indoor-bin">
+              <span>楼内垃圾桶</span>
+              <small>安全额度少，适合应急；超量可能被发现。</small>
+            </button>
+            <button data-action="outside-bin">
+              <span>外出找垃圾桶</span>
+              <small>消耗行动，可能找到大容量桶，也可能空跑。</small>
+            </button>
+            <button data-action="walk-bottles">
+              <span>散步捡瓶子</span>
+              <small>赚押金和零钱；瓶子库存满了要先去换。</small>
+            </button>
+            <button data-action="redeem-bottles">
+              <span>去超市换押金</span>
+              <small>把瓶子换成钱，缓解经济压力。</small>
+            </button>
+            <button data-action="compress-trash">
+              <span>在家整理压缩</span>
+              <small>减少重量或存放压力，但不赚钱。</small>
+            </button>
+            <button data-action="unlock-freedom">
+              <span>解锁垃圾自由</span>
+              <small>花钱买稳定权限，解锁后该类自动清空。</small>
+            </button>
+            <button data-action="end-day" class="primary-button wide">
+              <span>结束当天</span>
+              <small>结算存放天数、超限惩罚，并进入下一天。</small>
+            </button>
+          </div>
+        </section>
+
+        <section class="log-panel">
+          <div class="section-heading">
+            <h2>事件日志</h2>
+            <span>最近 80 条</span>
+          </div>
+          <ol id="logList" class="log-list"></ol>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">操作</h2>
+        <button id="modalCloseButton" class="icon-button" aria-label="关闭">×</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
