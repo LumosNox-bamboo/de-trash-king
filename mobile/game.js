@@ -1718,12 +1718,13 @@ function renderGarbageCards() {
     const warning = capacityRatio >= 0.75 || dayRatio >= 0.75;
     const fillColor = danger ? "var(--danger)" : warning ? "var(--warning)" : baseConfig.color;
     const fillWidth = Math.min(100, Math.round(Math.max(capacityRatio, dayRatio) * 100));
-    const unlocked = trash.unlocked ? `<span class="badge">已解锁自由</span>` : `<span class="badge" style="background:#f0e4d3;color:#5f4c37;">未解锁</span>`;
+    const unlocked = trash.unlocked ? `<span class="badge">已解锁</span>` : `<span class="badge" style="background:#f0e4d3;color:#5f4c37;">未解锁</span>`;
 
     return `
       <article class="garbage-card ${danger ? "danger" : ""}">
         <div class="garbage-title">
           <span><span class="trash-dot" style="background:${baseConfig.color}"></span> ${baseConfig.name}</span>
+          ${unlocked}
         </div>
         <div class="trash-meta">
           <span>${baseConfig.german}</span>
@@ -1734,7 +1735,6 @@ function renderGarbageCards() {
         <div class="progress" aria-label="${baseConfig.name}压力">
           <div class="progress-fill" style="width:${fillWidth}%;background:${fillColor};"></div>
         </div>
-        ${unlocked}
       </article>
     `;
   }).join("");

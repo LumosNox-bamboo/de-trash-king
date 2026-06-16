@@ -761,7 +761,7 @@ h2 {
     grid-area: daily;
     display: block;
     min-height: 0;
-    max-height: 42px;
+    max-height: 56px;
     overflow: hidden;
   }
 
@@ -783,7 +783,7 @@ h2 {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
   }
 
   .opportunity-panel {
@@ -853,6 +853,10 @@ h2 {
     line-height: 1.1;
   }
 
+  .garbage-title > span:first-child {
+    min-width: 0;
+  }
+
   .trash-dot {
     width: 9px;
     height: 9px;
@@ -877,9 +881,10 @@ h2 {
   }
 
   .badge {
-    min-height: 18px;
-    padding: 1px 5px;
-    font-size: 0.56rem;
+    flex: 0 0 auto;
+    min-height: 16px;
+    padding: 1px 4px;
+    font-size: 0.54rem;
   }
 
   .action-grid {
