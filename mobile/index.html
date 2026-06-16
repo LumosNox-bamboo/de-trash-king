@@ -11,7 +11,7 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Trash King DE Mobile</p>
-        <h1>我是德区垃圾王 · 手机版</h1>
+        <h1>德区垃圾王</h1>
       </div>
       <div class="header-actions">
         <button id="continueButton" class="secondary-button">继续游戏</button>
@@ -64,6 +64,10 @@
             <span>罚款</span>
             <strong id="finesValue">0 / 14</strong>
           </div>
+          <div class="status-item goal-status">
+            <span>进度</span>
+            <strong id="goalValue">0 / 4 自由</strong>
+          </div>
         </section>
 
         <section id="resultPanel" class="result-panel hidden"></section>
@@ -73,15 +77,11 @@
             <h2>今日情况</h2>
             <p id="dailySummary">新的一天开始了。</p>
           </div>
-          <div class="goal-box">
-            <span>通关进度</span>
-            <strong id="goalValue">0 / 4 自由</strong>
-          </div>
         </section>
 
         <section id="opportunityPanel" class="opportunity-panel hidden"></section>
 
-        <section>
+        <section class="trash-panel">
           <div class="section-heading">
             <h2>家中垃圾状态</h2>
             <span id="limitStreakValue">连续超限 0 天</span>

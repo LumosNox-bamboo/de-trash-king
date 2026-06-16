@@ -623,7 +623,13 @@ h2 {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 760px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   body {
     background:
       linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.36)),
@@ -631,31 +637,54 @@ h2 {
   }
 
   .page-shell {
-    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding: max(6px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    overflow: hidden;
   }
 
   .hero {
-    gap: 10px;
-    padding: 8px 0 12px;
+    flex: 0 0 auto;
+    gap: 6px;
+    padding: 0 0 4px;
   }
 
   .eyebrow {
-    font-size: 0.72rem;
+    display: none;
   }
 
   h1 {
-    font-size: 1.55rem;
-    line-height: 1.15;
+    font-size: 0.98rem;
+    line-height: 1.1;
   }
 
   h2 {
-    font-size: 1rem;
+    font-size: 0.82rem;
+  }
+
+  main {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
   }
 
   .mode-grid,
-  .garbage-grid,
   .organize-grid {
     grid-template-columns: 1fr;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .header-actions button {
+    flex: 1 1 62px;
+    min-height: 28px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.68rem;
   }
 
   .start-screen,
@@ -664,11 +693,14 @@ h2 {
   .log-panel,
   .result-panel,
   .opportunity-panel {
-    padding: 12px;
+    padding: 8px;
   }
 
   .start-screen {
+    align-self: stretch;
+    max-height: 100%;
     gap: 14px;
+    overflow: auto;
   }
 
   .start-copy p {
@@ -681,61 +713,182 @@ h2 {
   }
 
   .game-screen {
-    gap: 12px;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    gap: 5px;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto minmax(34px, 0.24fr);
+    grid-template-areas:
+      "status"
+      "daily"
+      "opportunity"
+      "trash"
+      "actions"
+      "log";
+    overflow: hidden;
   }
 
   .status-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    grid-area: status;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
   }
 
   .status-item {
-    padding: 10px;
+    min-height: 30px;
+    padding: 3px 5px;
+    border-radius: 6px;
+  }
+
+  .status-item span,
+  .goal-box span {
+    font-size: 0.56rem;
+    line-height: 1;
   }
 
   .status-item strong,
   .goal-box strong {
-    font-size: 0.96rem;
+    margin-top: 1px;
+    font-size: 0.68rem;
+    line-height: 1.1;
+  }
+
+  .goal-status {
+    background: #eef5f9;
   }
 
   .daily-panel {
-    gap: 10px;
+    grid-area: daily;
+    display: block;
+    min-height: 0;
+    max-height: 42px;
+    overflow: hidden;
   }
 
   .daily-panel p,
   .opportunity-content p,
   .hint {
-    font-size: 0.9rem;
+    font-size: 0.72rem;
+    line-height: 1.25;
   }
 
-  .goal-box {
-    width: 100%;
-    min-width: 0;
-    padding: 10px;
+  .daily-panel h2,
+  .action-panel h2,
+  .log-panel h2,
+  .trash-panel h2 {
+    margin-bottom: 2px;
+  }
+
+  .daily-panel p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .opportunity-panel {
+    grid-area: opportunity;
+    max-height: 58px;
+    overflow: auto;
+  }
+
+  .opportunity-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .opportunity-content h2 {
+    margin-bottom: 1px;
+    font-size: 0.78rem;
+  }
+
+  .opportunity-content p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .opportunity-content button {
+    min-height: 34px;
+    padding: 6px 8px;
+    font-size: 0.72rem;
+  }
+
+  .trash-panel {
+    grid-area: trash;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .trash-panel .section-heading {
+    margin-bottom: 3px;
+  }
+
+  .section-heading span {
+    font-size: 0.68rem;
+  }
+
+  .garbage-grid {
+    height: calc(100% - 18px);
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 5px;
   }
 
   .garbage-card {
-    gap: 8px;
-    padding: 12px;
+    min-height: 0;
+    gap: 4px;
+    padding: 6px;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .garbage-title {
+    gap: 4px;
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+
+  .trash-dot {
+    width: 9px;
+    height: 9px;
   }
 
   .trash-meta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 5px 8px;
-    font-size: 0.82rem;
+    gap: 2px;
+    font-size: 0.6rem;
+    line-height: 1.12;
   }
 
   .trash-meta span:first-child {
-    grid-column: 1 / -1;
+    display: none;
+  }
+
+  .trash-meta span:last-child {
+    display: none;
   }
 
   .progress {
-    height: 10px;
+    height: 7px;
+  }
+
+  .badge {
+    min-height: 18px;
+    padding: 1px 5px;
+    font-size: 0.56rem;
   }
 
   .action-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .action-panel {
+    grid-area: actions;
   }
 
   .action-grid .wide {
@@ -743,27 +896,30 @@ h2 {
   }
 
   .action-grid button {
-    min-height: 82px;
-    padding: 12px 10px;
+    min-height: 34px;
+    align-content: center;
+    padding: 5px 4px;
+    text-align: center;
   }
 
   .action-grid button small {
-    font-size: 0.76rem;
-    line-height: 1.25;
+    display: none;
+  }
+
+  .action-grid button span {
+    font-size: 0.68rem;
+    line-height: 1.15;
   }
 
   .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .opportunity-content {
-    align-items: stretch;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
+    margin-bottom: 4px;
   }
 
   button {
-    min-height: 52px;
+    min-height: 34px;
   }
 
   .header-actions button {
@@ -774,6 +930,17 @@ h2 {
   .choice-button,
   .mode-card {
     width: 100%;
+  }
+
+  .log-panel {
+    grid-area: log;
+    min-height: 0;
+    padding-top: 5px;
+    overflow: hidden;
+  }
+
+  .log-panel .section-heading {
+    margin-bottom: 3px;
   }
 
   .modal-backdrop {
@@ -820,12 +987,21 @@ h2 {
   }
 
   .log-list {
-    max-height: 220px;
-    padding-left: 20px;
+    max-height: none;
+    height: calc(100% - 17px);
+    gap: 3px;
+    padding-left: 16px;
   }
 
   .log-list li {
-    padding: 8px;
-    font-size: 0.88rem;
+    padding: 3px 5px;
+    font-size: 0.62rem;
+    line-height: 1.22;
+  }
+}
+
+@media (max-width: 374px) {
+  .action-grid button span {
+    font-size: 0.68rem;
   }
 }
