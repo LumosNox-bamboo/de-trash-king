@@ -586,6 +586,16 @@ function bindEvents() {
 function openSettingsModal() {
   openModal("界面设置", `
     <div class="settings-list">
+      <div class="settings-row language-row">
+        <span class="settings-icon">文</span>
+        <span>
+          <strong>语言</strong>
+          <span class="language-switch">
+            <span class="language-current">中文</span>
+            <a href="../en/index.html">English</a>
+          </span>
+        </span>
+      </div>
       <label class="settings-row">
         <input id="smallPhoneModeInput" type="checkbox" ${uiSettings.smallPhoneMode ? "checked" : ""}>
         <span>
