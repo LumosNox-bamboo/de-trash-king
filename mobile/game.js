@@ -1,6 +1,12 @@
 "use strict";
 
 const STORAGE_KEY = "trashQueenMobileSaveV1";
+const SETTINGS_KEY = "trashQueenMobileUiSettingsV1";
+const DEFAULT_UI_SETTINGS = {
+  smallPhoneMode: false,
+  showLog: true,
+  scrollLayout: false
+};
 
 const GAME_CONFIG = {
   maxLogs: 80,
@@ -518,11 +524,14 @@ let minigameTimer = null;
 let minigameState = null;
 let bottleSearchState = null;
 let compressGameState = null;
+let uiSettings = { ...DEFAULT_UI_SETTINGS };
 
 const elements = {};
 
 document.addEventListener("DOMContentLoaded", () => {
   cacheElements();
+  uiSettings = loadUiSettings();
+  applyUiSettings();
   bindEvents();
   updateStartButtons();
   render();
@@ -531,6 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function cacheElements() {
   elements.startScreen = document.getElementById("startScreen");
   elements.gameScreen = document.getElementById("gameScreen");
+  elements.settingsButton = document.getElementById("settingsButton");
   elements.continueButton = document.getElementById("continueButton");
   elements.resetButton = document.getElementById("resetButton");
   elements.dayValue = document.getElementById("dayValue");
@@ -563,12 +573,86 @@ function bindEvents() {
 
   elements.continueButton.addEventListener("click", continueGame);
   elements.resetButton.addEventListener("click", resetGame);
+  elements.settingsButton.addEventListener("click", openSettingsModal);
   elements.opportunityPanel.addEventListener("click", (event) => {
     if (event.target.closest("[data-accept-opportunity]")) acceptDailyOpportunity();
   });
   elements.modalCloseButton.addEventListener("click", closeModal);
   elements.modalBackdrop.addEventListener("click", (event) => {
     if (event.target === elements.modalBackdrop) closeModal();
+  });
+}
+
+function openSettingsModal() {
+  openModal("界面设置", `
+    <div class="settings-list">
+      <label class="settings-row">
+        <input id="smallPhoneModeInput" type="checkbox" ${uiSettings.smallPhoneMode ? "checked" : ""}>
+        <span>
+          <strong>小屏精简</strong>
+          <small>更小顶部、隐藏区块标题，把空间留给垃圾卡和行动按钮。</small>
+        </span>
+      </label>
+      <label class="settings-row">
+        <input id="showLogInput" type="checkbox" ${uiSettings.showLog ? "checked" : ""}>
+        <span>
+          <strong>显示事件日志</strong>
+          <small>小屏觉得挤时可以关掉，行动区和垃圾区会多一点空间。</small>
+        </span>
+      </label>
+      <label class="settings-row">
+        <input id="scrollLayoutInput" type="checkbox" ${uiSettings.scrollLayout ? "checked" : ""}>
+        <span>
+          <strong>允许纵向滚动</strong>
+          <small>不强行塞进一屏，适合很小的手机或浏览器字号偏大的情况。</small>
+        </span>
+      </label>
+    </div>
+  `);
+
+  document.getElementById("smallPhoneModeInput").addEventListener("change", (event) => {
+    updateUiSetting("smallPhoneMode", event.target.checked);
+  });
+  document.getElementById("showLogInput").addEventListener("change", (event) => {
+    updateUiSetting("showLog", event.target.checked);
+  });
+  document.getElementById("scrollLayoutInput").addEventListener("change", (event) => {
+    updateUiSetting("scrollLayout", event.target.checked);
+  });
+}
+
+function updateUiSetting(key, value) {
+  uiSettings = { ...uiSettings, [key]: value };
+  saveUiSettings();
+  applyUiSettings();
+}
+
+function loadUiSettings() {
+  const raw = localStorage.getItem(SETTINGS_KEY);
+  if (!raw) {
+    return {
+      ...DEFAULT_UI_SETTINGS,
+      smallPhoneMode: window.innerWidth <= 390,
+      showLog: window.innerHeight >= 700
+    };
+  }
+  try {
+    return { ...DEFAULT_UI_SETTINGS, ...JSON.parse(raw) };
+  } catch (error) {
+    return { ...DEFAULT_UI_SETTINGS };
+  }
+}
+
+function saveUiSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(uiSettings));
+}
+
+function applyUiSettings() {
+  const targets = [document.documentElement, document.body];
+  targets.forEach((target) => {
+    target.classList.toggle("small-phone-mode", uiSettings.smallPhoneMode);
+    target.classList.toggle("hide-log", !uiSettings.showLog);
+    target.classList.toggle("scroll-layout", uiSettings.scrollLayout);
   });
 }
 

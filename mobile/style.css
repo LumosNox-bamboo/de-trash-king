@@ -510,6 +510,41 @@ h2 {
   line-height: 1.35;
 }
 
+.settings-list {
+  display: grid;
+  gap: 10px;
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf1;
+}
+
+.settings-row input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.settings-row strong,
+.settings-row small {
+  display: block;
+}
+
+.settings-row small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 .search-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1002,6 +1037,131 @@ h2 {
     padding: 3px 5px;
     font-size: 0.62rem;
     line-height: 1.22;
+  }
+
+  .hide-log .game-screen {
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "status"
+      "daily"
+      "opportunity"
+      "trash"
+      "actions";
+  }
+
+  .hide-log .log-panel {
+    display: none;
+  }
+
+  .small-phone-mode .hero > div:first-child {
+    display: none;
+  }
+
+  .small-phone-mode .header-actions {
+    width: 100%;
+  }
+
+  .small-phone-mode .status-grid {
+    gap: 3px;
+  }
+
+  .small-phone-mode .status-item {
+    min-height: 26px;
+    padding: 2px 4px;
+  }
+
+  .small-phone-mode .status-item span,
+  .small-phone-mode .goal-box span {
+    font-size: 0.52rem;
+  }
+
+  .small-phone-mode .status-item strong,
+  .small-phone-mode .goal-box strong {
+    font-size: 0.62rem;
+  }
+
+  .small-phone-mode .daily-panel {
+    max-height: 40px;
+    padding: 5px 6px;
+  }
+
+  .small-phone-mode .daily-panel h2,
+  .small-phone-mode .trash-panel .section-heading,
+  .small-phone-mode .action-panel h2,
+  .small-phone-mode .log-panel .section-heading {
+    display: none;
+  }
+
+  .small-phone-mode .garbage-grid {
+    height: 100%;
+    gap: 4px;
+  }
+
+  .small-phone-mode .garbage-card {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .small-phone-mode .garbage-title {
+    font-size: 0.66rem;
+  }
+
+  .small-phone-mode .trash-meta {
+    font-size: 0.56rem;
+  }
+
+  .small-phone-mode .progress {
+    height: 5px;
+  }
+
+  .small-phone-mode .badge {
+    min-height: 14px;
+    padding: 0 3px;
+    font-size: 0.48rem;
+  }
+
+  .small-phone-mode .action-grid button {
+    min-height: 30px;
+    padding: 4px 3px;
+  }
+
+  .small-phone-mode .action-grid button span {
+    font-size: 0.62rem;
+  }
+
+  .scroll-layout,
+  .scroll-layout body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .scroll-layout .page-shell {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .scroll-layout .game-screen,
+  .scroll-layout .trash-panel,
+  .scroll-layout .log-panel {
+    overflow: visible;
+  }
+
+  .scroll-layout .game-screen {
+    grid-template-rows: auto auto auto auto auto auto;
+  }
+
+  .scroll-layout .garbage-grid {
+    height: auto;
+  }
+
+  .scroll-layout .garbage-card {
+    min-height: 78px;
+  }
+
+  .scroll-layout .log-list {
+    height: auto;
+    max-height: 150px;
   }
 }
 
